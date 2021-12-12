@@ -1,0 +1,24 @@
+思路：
+使用arraylist做为新数组存最后的值，从后遍历数组中的每一位数，分别与k的个位相加，如果有进位则用一个carry存进位，每一位最后的值就是k的个位+A数组的值+carry，最后当k为0且A遍历完之后，如果carry有进位则要加入新数组，然后因为新数组是从个位加进新数组中的，最后的结果便要把它反过来。
+public List addToArrayForm(int[] A, int K) {
+List res = new ArrayList<>();
+int carry = 0;
+int l1 = A.length - 1;
+while (l1 >= 0 || K != 0) {
+int x = l1 < 0 ? 0 : A[l1];
+int y = K == 0 ? 0 : K % 10;
+
+    int sum = x + y + carry;
+    res.add(sum % 10);
+    carry = sum / 10;
+
+    l1--;
+    K = K / 10;
+}
+if (carry != 0) res.add(carry);
+Collections.reverse(res);
+return res;
+}
+
+时间复杂度：O（n）
+空间复杂度：O（n）
